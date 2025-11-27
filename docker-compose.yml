@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  db:
+    build: ./db
+    container_name: innoevent-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: innoevent
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - innoevent-network
+
+  # FastAPI бэкенд
+  backend:
+    build: ./backend
+    container_name: innoevent-backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://postgres:password@db:5432/innoevent"
+      ENVIRONMENT: development
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    networks:
+      - innoevent-network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  innoevent-network:
+    driver: bridge
