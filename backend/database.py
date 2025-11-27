@@ -1,36 +1,26 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy.pool import NullPool
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
+# SQLite для разработки (встроен в Python)
+DATABASE_URL = "sqlite:///./innoevent.db"
 
-# Строка подключения к PostgreSQL
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+asyncpg://postgres:password@localhost:5432/innoevent"
-)
-
-# Создаём асинхронный движок
-engine = create_async_engine(
+engine = create_engine(
     DATABASE_URL,
-    echo=True,  # Логировать все SQL-запросы
-    poolclass=NullPool,
-    future=True
+    echo=True,
+    connect_args={"check_same_thread": False}
 )
 
-# Фабрика сессий
-AsyncSessionLocal = sessionmaker(
-    engine, class_=AsyncSession, expire_on_commit=False
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
 )
 
-# Базовый класс для моделей
 Base = declarative_base()
 
-# Функция для получения сессии БД (dependency injection)
-
-
-async def get_db():
-    async with AsyncSessionLocal() as session:
-        yield session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
