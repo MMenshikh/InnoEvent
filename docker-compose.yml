@@ -1,5 +1,4 @@
 services:
-  # PostgreSQL база данных
   db:
     build: ./db
     container_name: innoevent-postgres
