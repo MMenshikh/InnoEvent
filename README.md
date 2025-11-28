@@ -10,7 +10,7 @@
 
 **A modern, full-stack event management platform with real-time seat tracking and comprehensive observability**
 
-[Features](#-features) • [Quick Start](#-quick-start) • [API Docs](#-api-documentation) • [Deployment](#-deployment) • [Tech Stack](#-technology-stack)
+[Features](#-features) • [Quick Start](#-quick-start) • [API Docs](#-api-documentation) •  [Tech Stack](#-technology-stack)
 
 </div>
 
@@ -549,4 +549,5 @@ For issues or feature requests:
 **Last Updated:** November 28, 2025 | **Version:** 1.0.0
 
 </div>
+
 
