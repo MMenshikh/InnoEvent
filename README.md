@@ -519,182 +519,12 @@ Access metrics: `GET /metrics`
 - **Package Management:** pip
 - **Virtual Environments:** venv
 - **Testing:** Manual testing via Swagger UI
-
 ---
 
-## 📈 Key Features Implementation
-
-### Real-time Seat Tracking
-- When a user registers, `available_seats` decreases by 1
-- When total seats are updated, available seats recalculate
-- When a registration is cancelled, `available_seats` increases by 1
-
-### User Registration
-- Email uniqueness validation
-- Name and surname uniqueness validation
-- Prevention of duplicate event registrations
-
-### Event Management
-- Support for multiple event types (Meetup, Conference, Concert)
-- Event date tracking with timezone handling
-- Location-based event organization
-
-### Observability
-- Structured JSON logging for easy parsing and analysis
-- Comprehensive metrics for monitoring application health
-- Health check endpoints for uptime monitoring
-- Error tracking by type for better debugging
-
----
-
-## 🗄️ Database Management
-
-### Clear All Data (Keep Database Structure)
-```bash
-cd backend
-python clear_data.py
-```
-
-### Full Database Reset (Delete & Recreate)
-```bash
-cd backend
-# On Windows:
-del innoevent.db
-# On macOS/Linux:
-rm innoevent.db
-
-python main.py
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Port Already in Use
-```bash
-# Find process using port 8000 (backend)
-netstat -ano | findstr :8000
-
-# Find process using port 3000 (frontend)
-netstat -ano | findstr :3000
-
-# Kill process by PID
-taskkill /PID <PID> /F
-```
-
-### Virtual Environment Issues
-```bash
-# Delete venv and recreate
-rmdir /s venv
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### Database Errors
-```bash
-# Reset database
-cd backend
-del innoevent.db
-python main.py
-```
-
-### Docker Issues
-```bash
-# Clean up Docker containers and images
-docker-compose down
-docker system prune -a
-
-# Rebuild from scratch
-docker-compose up --build --force-recreate
-```
-
----
-
-## 📋 Project Requirements Checklist
-
-| Requirement | Status | Details |
-|------------|--------|---------|
-| Frontend Development | ✅ Complete | Flask + HTML/CSS/JS, Montserrat font, responsive design |
-| Backend Development | ✅ Complete | FastAPI with SQLAlchemy ORM, RESTful API |
-| Database Design | ✅ Complete | SQLite with 3 tables (users, events, registrations) |
-| Observability | ✅ Complete | Structured JSON logging, metrics collection, health checks |
-| Seat Management | ✅ Complete | Real-time seat tracking and availability management |
-| User Authentication | ✅ Complete | Registration and login functionality |
-| Event Registration | ✅ Complete | Create, update, delete registrations with validation |
-| Lean Canvas | ⏳ Pending | Business model documentation (deadline: Nov 28) |
-| Unit Economics | ⏳ Pending | Revenue and cost analysis (deadline: Nov 28) |
-
----
-
-## 🚀 Deployment
-
-### Local Deployment
-- Run `run.bat` (Windows) or manual setup steps
-- Access frontend at http://localhost:3000
-- Backend API at http://localhost:8000
-
-### Docker Deployment
-- Run `docker-compose up --build`
-- All services start automatically
-- Logs visible in terminal
-
-### Production Deployment (Future)
-- Deploy to cloud platforms (AWS, GCP, Azure)
-- Use environment variables for configuration
-- Set up CI/CD pipeline with GitHub Actions
-- Implement SSL/TLS certificates
-- Use production-grade database (PostgreSQL)
-- Set up monitoring and alerting
-
----
-
-## 📝 File Structure & Descriptions
-
-```
-backend/
-├── main.py              # FastAPI application entry point
-├── models.py            # SQLAlchemy ORM models (User, Event, Registration)
-├── schemas.py           # Pydantic validation schemas
-├── crud.py              # Database CRUD operations
-├── database.py          # Database configuration and session management
-├── logging_config.py    # Structured JSON logging setup
-├── metrics.py           # Application metrics collection class
-├── requirements.txt     # Python dependencies
-├── Dockerfile           # Container image definition
-└── innoevent.db         # SQLite database file
-
-frontend/
-├── app.py               # Flask application server
-├── index.html           # Main HTML template
-├── script.js            # Frontend JavaScript logic and API calls
-├── style.css            # CSS styling with Montserrat font
-├── requirements.txt     # Python dependencies
-├── Dockerfile           # Container image definition
-├── background.png       # Background image asset
-└── logo.png             # Application logo asset
-```
-
----
-
-## 🎓 Learning Outcomes
-
-This project demonstrates:
-- Full-stack web application development
-- RESTful API design and implementation
-- Database design and ORM usage
-- Frontend-backend integration
-- Structured logging and observability
-- Docker containerization
-- Git version control
-- Professional code organization
-- User authentication and authorization patterns
-
----
 
 ## 📄 License
 
-This project is part of the MTC True Tech+ Program.
+MIT License
 
 ---
 
@@ -708,17 +538,15 @@ For questions or suggestions, please contact the development team.
 
 For issues or feature requests:
 1. Check existing GitHub issues
-2. Review the troubleshooting section
-3. Contact the development team
+2. Contact the development team
 
 ---
 
 <div align="center">
-
-**Built with ❤️ for event management**
 
 [Back to top](#innoevent---event-management-platform)
 
 **Last Updated:** November 28, 2025 | **Version:** 1.0.0
 
 </div>
+
