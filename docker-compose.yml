@@ -1,35 +1,20 @@
-version: '3.8'
-
 services:
-  backend:
-    build: ./backend
-    container_name: innoevent-backend
-    ports:
-      - "8000:8000"
+  db:
+    build: ./db
+    container_name: innoevent-postgres
     environment:
-      PYTHONUNBUFFERED: 1
-    volumes:
-      - ./backend:/app
-      - ./backend/innoevent.db:/app/innoevent.db
-    command: python main.py
-    networks:
-      - innoevent-network
-
-  frontend:
-    build: ./frontend
-    container_name: innoevent-frontend
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: innoevent
     ports:
-      - "3000:3000"
-    environment:
-      PYTHONUNBUFFERED: 1
+      - "5432:5432"
     volumes:
-      - ./frontend:/app
-    depends_on:
-      - backend
-    command: python app.py
-    networks:
-      - innoevent-network
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-networks:
-  innoevent-network:
-    driver: bridge
+volumes:
+  postgres_data:
