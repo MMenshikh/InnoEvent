@@ -1,20 +1,33 @@
-services:
-  db:
-    build: ./db
-    container_name: innoevent-postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: innoevent
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+version: '3.8'
 
-volumes:
-  postgres_data:
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: innoevent-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///innoevent.db
+      - ENVIRONMENT=production
+    volumes:
+      - ./backend:/app
+      - ./backend/logs:/app/logs
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: innoevent-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - API_BASE_URL=http://localhost:8000/api
+      - FLASK_ENV=production
+    volumes:
+      - ./frontend:/app
+    command: python app.py
