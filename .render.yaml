@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: innoevent
-    env: docker-compose
-    dockerComposeFile: ./docker-compose.yml
-    envVars:
-      - key: ENVIRONMENT
-        value: production
