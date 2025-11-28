@@ -68,6 +68,7 @@ class EventResponse(BaseModel):
     total_seats: int
     available_seats: int
     organizer_id: int
+    organizer: Optional["UserResponse"] = None  # ← добавь эту строку
     created_at: datetime
 
     class Config:

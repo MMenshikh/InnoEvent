@@ -1,121 +1,306 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InnoEvent - Event Management</title>
     <link rel="stylesheet" href="style.css">
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css' rel='stylesheet' />
+
+    <!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+
+    <!-- English localization -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/locales/en.global.min.js'></script>
+
+    <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap'
+        rel='stylesheet'>
+
 </head>
+
 <body>
 
-<!-- ===== СТРАНИЦА ВХОДА ===== -->
-<div id="loginPage" class="page">
-    <div class="login-container">
-        <h2>InnoEvent</h2>
-        <form onsubmit="event.preventDefault(); handleLogin();">
-            <div class="form-group">
-                <label>Фамилия *</label>
-                <input type="text" id="loginSurname" required>
+    <!-- ===== REGISTRATION PAGE ===== -->
+    <div id="registerPage" class="page">
+        <div class="login-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+                <h2>InnoEvent</h2>
             </div>
-            <div class="form-group">
-                <label>Имя *</label>
-                <input type="text" id="loginName" required>
+            <h3 style="text-align: center; color: #FF6B6B; margin-bottom: 20px;">Sign Up</h3>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Last Name *</label>
+                    <input type="text" id="regSurname" required>
+                </div>
+                <div class="form-group">
+                    <label>First Name *</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="regPhone">
+                </div>
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="toggle-mode">
+                <button onclick="showPage('loginPage')">Already have an account? Sign In</button>
             </div>
-            <div class="form-group" style="display: none;">
-                <label>Email</label>
-                <input type="email" id="loginEmail">
-            </div>
-            <div class="form-group" style="display: none;">
-                <label>Телефон</label>
-                <input type="text" id="loginPhone">
-            </div>
-            <div class="form-group">
-                <label>Пароль *</label>
-                <input type="password" id="loginPassword" required>
-            </div>
-            <button type="submit" id="loginBtn">Войти</button>
-        </form>
-        <div class="toggle-mode">
-            <button id="toggleModeBtn" onclick="toggleLoginMode()">Создать аккаунт</button>
         </div>
     </div>
-</div>
 
-<!-- ===== ГЛАВНАЯ СТРАНИЦА ===== -->
-<div id="mainPage" class="page">
-    <header>
-        <h1>InnoEvent</h1>
-        <div style="display: flex; gap: 10px;">
-            <span id="userName"></span>
-            <button onclick="logout()">Выход</button>
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage" class="page">
+        <div class="login-container">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+                <h2>InnoEvent</h2>
+            </div>
+            <h3 style="text-align: center; color: #FF6B6B; margin-bottom: 20px;">Sign In</h3>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+            <div class="toggle-mode">
+                <button onclick="showPage('registerPage')">Don't have an account? Sign Up</button>
+            </div>
         </div>
-    </header>
-
-    <div class="tabs">
-        <button onclick="showPage('mainPage'); loadEvents()">📅 Все события</button>
-        <button onclick="showPage('createEventPage')">➕ Создать событие</button>
-        <button onclick="showPage('myRegistrationsPage'); loadMyRegistrations()">🎫 Мои регистрации</button>
     </div>
 
-    <div id="eventsList" class="events-grid"></div>
-</div>
+    <!-- ===== MAIN PAGE ===== -->
+    <div id="mainPage" class="page">
+        <header id="authHeader" style="display: none;">
+            <div class="header-left">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <h1>InnoEvent</h1>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="showPage('profilePage'); loadProfile()"
+                    style="background: #FF6B6B; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 14px; width: auto;"><span
+                        id="userName"></span></button>
+                <button onclick="logout()"
+                    style="background: #FF6B6B; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 14px; width: auto;">Log
+                    Out</button>
+            </div>
+        </header>
 
-<!-- ===== СОЗДАНИЕ СОБЫТИЯ ===== -->
-<div id="createEventPage" class="page">
-    <header>
-        <h1>InnoEvent</h1>
-        <button onclick="showPage('mainPage')">← Назад</button>
-    </header>
+        <!-- Header for unauthorized users -->
+        <header id="guestHeader"
+            style="display: flex; background: transparent; color: #000; padding: 20px; margin-bottom: 0; border-radius: 0; justify-content: space-between; align-items: center;">
+            <div class="header-left">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <h1 style="color: #000; margin: 0; font-size: 28px;">InnoEvent</h1>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="showPage('registerPage')"
+                    style="background: #FF6B6B; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 203px; font-size: 14px;">Sign
+                    In / Sign Up</button>
+            </div>
+        </header>
 
-    <div class="create-event-form">
-        <h2>Создать новое событие</h2>
-        <form onsubmit="event.preventDefault(); createEvent();">
-            <div class="form-group">
-                <label>Название события *</label>
-                <input type="text" id="eventTitle" required>
-            </div>
-            <div class="form-group">
-                <label>Описание</label>
-                <textarea id="eventDescription" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Тип события *</label>
-                <select id="eventType" required>
-                    <option value="Meetup">Meetup</option>
-                    <option value="Conference">Conference</option>
-                    <option value="Concert">Concert</option>
-                    <option value="Workshop">Workshop</option>
-                    <option value="Webinar">Webinar</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Дата и время *</label>
-                <input type="datetime-local" id="eventDate" required>
-            </div>
-            <div class="form-group">
-                <label>Место проведения *</label>
-                <input type="text" id="eventLocation" required>
-            </div>
-            <div class="form-group">
-                <label>Количество мест *</label>
-                <input type="number" id="eventSeats" min="1" required>
-            </div>
-            <button type="submit">Создать событие</button>
-        </form>
+        <div
+            style="padding: 0 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: #000; margin: 0; font-size: 24px;">All Events</h2>
+            <button onclick="checkAuth(() => showPage('createEventPage'))"
+                style="background: #FF6B6B; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 203px; font-size: 14px;">
+                Create Event</button>
+        </div>
+
+        <div id="eventsList" class="events-grid"></div>
     </div>
-</div>
 
-<!-- ===== МОИ РЕГИСТРАЦИИ ===== -->
-<div id="myRegistrationsPage" class="page">
-    <header>
-        <h1>InnoEvent</h1>
-        <button onclick="showPage('mainPage')">← Назад</button>
-    </header>
+    <!-- ===== CREATE EVENT ===== -->
+    <div id="createEventPage" class="page">
+        <header id="authHeader2" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="header-left">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <h1>InnoEvent</h1>
+            </div>
+            <button onclick="showPage('mainPage')"
+                style="background: #FF6B6B; color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 13px; width: auto !important;">←
+                Back</button>
+        </header>
 
-    <h2>Мои регистрации</h2>
-    <div id="registrationsList" class="events-grid"></div>
-</div>
+        <div class="create-event-form">
+            <h2>Create New Event</h2>
+            <form id="createEventForm">
+                <div class="form-group">
+                    <label>Event Name *</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="eventDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Event Type *</label>
+                    <select id="eventType" required>
+                        <option value="Meetup">Meetup</option>
+                        <option value="Conference">Conference</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Webinar">Webinar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date and Time *</label>
+                    <input type="datetime-local" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" id="eventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Seats *</label>
+                    <input type="number" id="eventSeats" min="1" required>
+                </div>
+                <button type="submit">Create Event</button>
+            </form>
+        </div>
+    </div>
 
-<script src="script.js"></script>
+    <!-- ===== PROFILE ===== -->
+    <div id="profilePage" class="page">
+        <header id="authHeader4" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="header-left">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <h1>InnoEvent</h1>
+            </div>
+            <button onclick="showPage('mainPage')"
+                style="background: #FF6B6B; color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 13px; width: auto !important;">←
+                Back</button>
+        </header>
+
+        <div class="profile-container">
+            <!-- Sidebar -->
+            <aside class="profile-sidebar">
+                <button class="profile-nav-btn active" onclick="showProfileTab('editProfile')">Edit Profile</button>
+                <button class="profile-nav-btn" onclick="showProfileTab('myRegistrations')">My Registrations</button>
+                <button class="profile-nav-btn" onclick="showProfileTab('myEvents')">My Events</button>
+                <button class="profile-nav-btn" onclick="showProfileTab('eventCalendar')">Event Calendar</button>
+            </aside>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+
+                <!-- EDIT PROFILE -->
+                <div id="editProfileTab" class="profile-tab active">
+                    <h2>My Profile</h2>
+                    <form onsubmit="(e) => { e.preventDefault(); updateProfile(); }">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="profileSurname">
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="profileName">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="profileEmail">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="profilePhone">
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Date</label>
+                            <p id="profileCreatedAt" style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                            </p>
+                        </div>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- MY REGISTRATIONS -->
+                <div id="myRegistrationsTab" class="profile-tab">
+                    <h2>My Registrations</h2>
+                    <div id="profileRegistrationsList" class="events-grid"></div>
+                </div>
+
+                <!-- MY EVENTS -->
+                <div id="myEventsTab" class="profile-tab">
+                    <h2>My Events</h2>
+                    <div id="profileEventsList" class="events-grid"></div>
+                </div>
+
+                <!-- EVENT CALENDAR -->
+                <div id="eventCalendarTab" class="profile-tab">
+                    <h2>Event Calendar</h2>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== EDIT EVENT ===== -->
+    <div id="editEventPage" class="page">
+        <header id="authHeader5" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="header-left">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <h1>InnoEvent</h1>
+            </div>
+            <button onclick="showPage('profilePage'); showProfileTab('myEvents')"
+                style="background: #FF6B6B; color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; font-size: 13px; width: auto !important;">←
+                Back</button>
+        </header>
+
+        <div class="create-event-form">
+            <h2>Edit Event</h2>
+            <form id="editEventForm">
+                <div class="form-group">
+                    <label>Event Name *</label>
+                    <input type="text" id="editEventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editEventDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Event Type *</label>
+                    <select id="editEventType" required>
+                        <option value="Meetup">Meetup</option>
+                        <option value="Conference">Conference</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Webinar">Webinar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date and Time *</label>
+                    <input type="datetime-local" id="editEventDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" id="editEventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Seats *</label>
+                    <input type="number" id="editEventSeats" min="1" required>
+                </div>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>

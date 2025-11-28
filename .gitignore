@@ -23,33 +23,26 @@ wheels/
 .installed.cfg
 *.egg
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Environment
-.env
-.env.local
-.env.*.local
-
-# Logs
-logs/
-*.log
-
 # Database
 *.db
 *.sqlite
 *.sqlite3
 
-# Docker
-docker-compose.override.yml
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+
+# Logs
+logs/
+*.log
 
 # OS
-.DS_Store
 Thumbs.db
-
-# Frontend
-node_modules/
-dist/

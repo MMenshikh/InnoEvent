@@ -19,17 +19,44 @@ body {
 
 /* ===== HEADER ===== */
 header {
-    background: linear-gradient(135deg, #FF6B6B 0%, #FFB3B3 100%);
-    color: white;
+    background: transparent;
+    color: #000;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    border-bottom: none;
 }
 
 header h1 {
     font-size: 28px;
+    color: #000;
+    margin: 0;
+}
+
+header button {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+header button:hover {
+    background: #f0f0f0;
+}
+
+header button:last-child {
+    background: #FF6B6B;
+    color: white;
+}
+
+header button:last-child:hover {
+    background: #ff5252;
 }
 
 header button {
@@ -53,7 +80,7 @@ header button:hover {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .login-container h2 {
@@ -148,9 +175,32 @@ button:disabled {
     padding: 10px 20px;
     background: #f0f0f0;
     color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tabs button:hover {
+    background: #e0e0e0;
+}
+
+.tabs button:nth-child(2) {
+    background: #FF6B6B;
+    color: white;
+}
+
+.tabs button:nth-child(2):hover {
+    background: #ff5252;
 }
 
 .tabs button.active {
+    background: #FF6B6B;
+    color: white;
+}
+
+.tabs button.tab-active {
     background: #FF6B6B;
     color: white;
 }
@@ -167,12 +217,13 @@ button:disabled {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .event-card h3,
-.registration-card h3 {
-    color: #FF6B6B;
+.registration-card h3,
+.profile-event-card h4 {
+    color: #000 !important;
     margin-bottom: 10px;
 }
 
@@ -194,13 +245,16 @@ button:disabled {
     padding: 30px;
     border-radius: 10px;
     max-width: 600px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin: 40px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .create-event-form h2 {
-    color: #FF6B6B;
+    color: #000 !important;
     margin-bottom: 20px;
+    text-align: center;
 }
+
 
 .event-types {
     display: flex;
@@ -218,4 +272,315 @@ button:disabled {
 
 .event-types input[type="radio"] {
     width: auto;
+}
+
+/* ===== LOGO ===== */
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.profile-btn {
+    width: auto !important;
+    padding: 8px 15px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid white !important;
+}
+
+.profile-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form h2 {
+    color: #FF6B6B;
+    margin-bottom: 20px;
+}
+
+.profile-form p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.tab-active {
+    background: #FF6B6B !important;
+    color: white !important;
+}
+
+/* ===== ПРОФИЛЬ СТИЛЬ ===== */
+
+.profile-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 40px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form h2 {
+    color: #FF6B6B;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===== КНОПКА НАЗАД ===== */
+
+header button:not(.profile-btn):not([style*="background"]) {
+    width: auto !important;
+    padding: 6px 12px !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    font-size: 13px !important;
+}
+
+header button:not(.profile-btn):not([style*="background"]):hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ===== ПРОФИЛЬ С БОКОВОЙ ПАНЕЛЬЮ ===== */
+
+.profile-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 200px;
+}
+
+.profile-nav-btn {
+    padding: 12px 15px;
+    background: #f0f0f0;
+    color: #333;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.profile-nav-btn:hover {
+    background: #e0e0e0;
+}
+
+.profile-nav-btn.active {
+    background: #FF6B6B;
+    color: white;
+    border-color: #FF6B6B;
+}
+
+.profile-content {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-tab {
+    display: none;
+}
+
+.profile-tab.active {
+    display: block;
+}
+
+.profile-content h2 {
+    color: #000 !important;
+    margin-bottom: 20px;
+}
+
+.profile-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Карточка события в профиле */
+.profile-event-card {
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-event-card h4 {
+    margin: 0 0 8px 0;
+    color: #FF6B6B;
+}
+
+.profile-event-card p {
+    margin: 4px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.profile-event-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-event-actions button {
+    padding: 6px 12px;
+    font-size: 12px;
+    width: auto !important;
+    background: #FF6B6B;
+    color: white;
+}
+
+.profile-event-actions button.delete {
+    background: #d32f2f;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        flex-direction: row;
+        min-width: auto;
+    }
+
+    .profile-nav-btn {
+        flex: 1;
+    }
+}
+
+/* ===== BACKGROUND ===== */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    background-image: url('background.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+.page {
+    display: none;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+/* ===== КАЛЕНДАРЬ СОБЫТИЙ ===== */
+
+#calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.fc {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.fc .fc-button-primary {
+    background-color: #FF6B6B !important;
+    border-color: #FF6B6B !important;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #ff5252 !important;
+}
+
+.fc .fc-button-primary.fc-button-active {
+    background-color: #d32f2f !important;
+}
+
+.fc .fc-daygrid-day.fc-day-other {
+    background-color: #f5f5f5;
+}
+
+.fc .fc-daygrid-day:hover {
+    background-color: #f0f0f0;
+}
+
+.event-organized {
+    background-color: #ff6b6b !important;
+    border-color: #d32f2f !important;
+}
+
+.event-registered {
+    background-color: #ffc107 !important;
+    border-color: #f57f17 !important;
+}
+
+.fc .fc-daygrid-day-frame {
+    position: relative;
+}
+
+/* ===== GLOBAL MONTSERRAT FONT ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+button {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+input, textarea, select {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+label {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+p, a, span {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
